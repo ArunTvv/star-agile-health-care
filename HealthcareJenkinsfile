@@ -28,7 +28,18 @@ pipeline {
         sh 'docker build -t aruntvv/healthcare:1.0 .'
                     }
             }
-    
+    stage('Login to Dockerhub') {
+      steps {
+       withCredentials([usernamePassword(credentialsId: 'dockerid', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
+       sh 'docker login -u ${dockeruser} -p ${dockerpass}'
+                  }
+                   }
+                    }
+    stage('Push the Docker image') {
+      steps {
+        sh 'docker push aruntvv/healthcare:1.0'
+              }
+            }
     }
    }
     
