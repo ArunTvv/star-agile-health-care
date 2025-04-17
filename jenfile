@@ -48,5 +48,11 @@ pipeline{
               ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
           }
         }
+          stage('Deploying the application to production') {
+       steps {
+        sh 'kubectl apply -f app-deploy.yml'
+        sh 'kubectl get svc'
+      }
+    }
       }
 }
