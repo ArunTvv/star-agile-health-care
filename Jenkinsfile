@@ -28,5 +28,19 @@ pipeline{
               sh 'docker build -t aruntvv/healthcarenew:latest .'
           }
         }
+           stage('Login to DockerHub'){
+          steps {
+            echo 'this is for Login Dockerhub'
+            withCredentials([usernamePassword(credentialsId: 'dockerid', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
+            sh 'docker login -u ${dockeruser} -p ${dockerpass}'
+            }
+          }
+        }
+           stage('Push Docker image'){
+          steps {
+            echo 'this is for Pushing Docker image'
+            sh 'docker push aruntvv/healthcarenew:latest'
+          }
+        }
       }
 }
