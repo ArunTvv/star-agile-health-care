@@ -42,5 +42,11 @@ pipeline{
             sh 'docker push aruntvv/healthcarenew:latest'
           }
         }
+            stage('Deploy with ansible'){
+          steps {
+            echo 'this is for ansible'
+              ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml', vaultTmpPath: ''
+          }
+        }
       }
 }
