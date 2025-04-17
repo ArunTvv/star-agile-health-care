@@ -22,5 +22,11 @@ pipeline{
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: '/var/lib/jenkins/workspace/HealthCare/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
           }
         }
+          stage('Docker image creation'){
+          steps {
+            echo 'this is for Docker image build'
+              sh 'docker build -t aruntvv/healthcarenew:latest .'
+          }
+        }
       }
 }
